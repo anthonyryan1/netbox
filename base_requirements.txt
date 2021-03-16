@@ -2,6 +2,10 @@
 # https://github.com/django/django
 Django
 
+# Django login rate limiting
+# https://github.com/jazzband/django-axes
+django-axes
+
 # Django caching using Redis
 # https://github.com/Suor/django-cacheops
 django-cacheops

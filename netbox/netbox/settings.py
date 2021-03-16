@@ -69,6 +69,8 @@ ADMINS = getattr(configuration, 'ADMINS', [])
 ALLOWED_URL_SCHEMES = getattr(configuration, 'ALLOWED_URL_SCHEMES', (
     'file', 'ftp', 'ftps', 'http', 'https', 'irc', 'mailto', 'sftp', 'ssh', 'tel', 'telnet', 'tftp', 'vnc', 'xmpp',
 ))
+AXES_FAILURE_LIMIT = getattr(configuration, 'AXES_FAILURE_LIMIT', 3)
+AXES_COOLOFF_TIME = getattr(configuration, 'AXES_COOLOFF_TIME', 6)
 BANNER_BOTTOM = getattr(configuration, 'BANNER_BOTTOM', '')
 BANNER_LOGIN = getattr(configuration, 'BANNER_LOGIN', '')
 BANNER_TOP = getattr(configuration, 'BANNER_TOP', '')
@@ -277,6 +279,7 @@ SERVER_EMAIL = EMAIL.get('FROM_EMAIL')
 #
 
 INSTALLED_APPS = [
+    'axes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -325,6 +328,7 @@ MIDDLEWARE = [
     'netbox.middleware.APIVersionMiddleware',
     'netbox.middleware.ObjectChangeMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'netbox.urls'
@@ -350,6 +354,7 @@ TEMPLATES = [
 
 # Set up authentication backends
 AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
     REMOTE_AUTH_BACKEND,
     'netbox.authentication.ObjectPermissionBackend',
 ]
